@@ -28,54 +28,26 @@ import {
   SelectInput,
   PasswordInput
 } from "react-admin";
-
-export const PostList = () => (
-  <List filters={postFilters}>
-    <Datagrid>
-      <TextField source="id" />
-      <ReferenceField source="userId" reference="users" />
-      <TextField source="title" />
-      <EditButton />
-    </Datagrid>
-  </List>
-);
+import * as React from 'react';
 
 
+export const PostList: React.FC = () => {
+  return (
+    <div>
+      <List filters={postFilters} >
+        <Datagrid rowClick="show">
+          <TextField source="id" />
+          <ReferenceField source="userId" reference="users" link="show" />
+          <TextField source="title" />
+          <TextField source="body" />
+          <EditButton />
+        </Datagrid>
+      </List>
 
+    </div>
+  );
+};
 
-function Creates () {
-
-   return  <div> 
-                <div><TextInput label="User" source="User" /></div>
-                <div><PasswordInput source="Passwords" /></div>
-                <div><CheckboxGroupInput source="roles" choices={[
-                    { id: 'admin', name: 'Admin' },
-                    { id: 'u001', name: 'Editor' },
-                    { id: 'u002', name: 'Moderator' },
-                    { id: 'u003', name: 'Reviewer' },
-                ]} />
-                </div>
-              </div>
-}
-// function RenderInputComponents() {
-//   return (
-  //       {array.map((item) => {
-    //         const { inputType, key, value, label} = item;
-    //         console.log("item",item)
-    //         if(inputType === "DateInput"){
-      //           return <div><DateInput key={key} label={label} source={key}/></div>
-      //     <div>
-//         }
-//         else if (inputType === "number"){
-//           return <div><NumberInput key={key} label={label} source={key}/></div>
-//         }
-//         else if (inputType === "string") {
-//           return <div><TextInput key={key} label={label} source={key}/></div>
-//         }
-       
-//       })}
-//     </div>
-// }
 
 const inputArrayType: {
   tab: string;
@@ -87,13 +59,25 @@ const inputArrayType: {
   }[];
 }[] = [
   {
-    tab: 'Tab1',
+    tab: 'Update',
     items: [
       {
         inputType: 'string',
-        key: 'isAvailable',
+        key: 'id',
         value: false,
-        label: 'TextInputs',
+        label: 'id', 
+      },
+      {
+        inputType: 'string',
+        key: 'title',
+        value: false,
+        label: 'title', 
+      },
+      {
+        inputType: 'string',
+        key: 'body',
+        value: false,
+        label: 'body', 
       },
     ],
   },
@@ -126,6 +110,7 @@ const inputArrayType: {
     ],
   },
 ];
+
 
 function RenderInputComponents(tabIndex: number) {
   const items = inputArrayType[tabIndex].items;
@@ -168,6 +153,7 @@ function RenderInputComponents(tabIndex: number) {
     </div>
   );
 }
+
 
 export const PostEdit: React.FC = () => (
   <Edit>
