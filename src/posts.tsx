@@ -50,7 +50,7 @@ interface Post {
   body: string;
 }
 
-const PostList: React.FC<ListProps> = (props) => {
+export const PostList: React.FC<ListProps> = (props) => {
   const [isModalOpen, setModalOpen] = React.useState(false);
   const [selectedPost, setSelectedPost] = React.useState<Post | null>(null);
 
