@@ -26,10 +26,12 @@ import {
   ImageInput,
   CheckboxGroupInput,
   SelectInput,
-  PasswordInput
+  PasswordInput,
+  Button
 } from "react-admin";
 import * as React from 'react';
 import PostModal from "./PostModal";
+import { Dialog, ListProps } from "@mui/material";
 
 
 const PostPanel = () => {
@@ -41,24 +43,61 @@ const PostPanel = () => {
 
 
 
-export const PostList: React.FC = () => {
+interface Post {
+  id: number;
+  userId: number;
+  title: string;
+  body: string;
+}
+
+const PostList: React.FC<ListProps> = (props) => {
+  const [isModalOpen, setModalOpen] = React.useState(false);
+  const [selectedPost, setSelectedPost] = React.useState<Post | null>(null);
+
+  // Function to open the modal
+  const openModal = (post: Post) => {
+    setSelectedPost(post);
+    setModalOpen(true);
+  };
+
+  // Function to close the modal
+  const closeModal = () => {
+    setSelectedPost(null);
+    setModalOpen(false);
+  };
+
   return (
     <div>
-      
-      <List filters={postFilters}>
-       <Datagrid  rowClick='show'>
+      <List>
+        <Datagrid>
           <TextField source="id" />
-          <ReferenceField source="userId" reference="users" link="show" />
+          <ReferenceField source="userId" reference="users" link="show">
+            <TextField source="name" />
+          </ReferenceField>
           <TextField source="title" />
           <TextField source="body" />
-          {/* Pass a 'post' prop with the appropriate data to the 'PostModal' component */}
-          {/* <PostModal post={{ id: 1, userId: 1, title: 'Sample Title', body: 'Sample Body' }} /> */}
-          <EditButton/>
+          <EditButton />
+          {/* Add a button to open the modal */}
+          <Button label="Open Modal" onClick={() => openModal({ id: 1, userId: 1, title: 'Sample Title', body: 'Sample Body' })} />
         </Datagrid>
       </List>
+
+      {/* Create a modal for displaying the selected post */}
+      <Dialog fullWidth open={isModalOpen} onClose={closeModal}>
+        {selectedPost && (
+          <div>
+            <h2>ID: {selectedPost.id}</h2>
+            <ReferenceField source="userId" reference="users" record={selectedPost}>
+              <TextField source="name" />
+            </ReferenceField>
+            <h2>Title: {selectedPost.title}</h2>
+            <p>Body: {selectedPost.body}</p>
+          </div>
+        )}
+      </Dialog>
     </div>
   );
-}; 
+};
 
 const inputArrayType: {
   tab: string;
