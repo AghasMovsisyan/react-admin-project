@@ -29,25 +29,36 @@ import {
   PasswordInput
 } from "react-admin";
 import * as React from 'react';
+import PostModal from "./PostModal";
+
+
+const PostPanel = () => {
+  const record = useRecordContext();
+  return (
+      <div dangerouslySetInnerHTML={{ __html: record.body }} />
+  );
+};
+
 
 
 export const PostList: React.FC = () => {
   return (
     <div>
-      <List filters={postFilters} >
-        <Datagrid rowClick="show">
+      
+      <List filters={postFilters}>
+       <Datagrid  rowClick='show'>
           <TextField source="id" />
           <ReferenceField source="userId" reference="users" link="show" />
           <TextField source="title" />
           <TextField source="body" />
-          <EditButton />
+          {/* Pass a 'post' prop with the appropriate data to the 'PostModal' component */}
+          {/* <PostModal post={{ id: 1, userId: 1, title: 'Sample Title', body: 'Sample Body' }} /> */}
+          <EditButton/>
         </Datagrid>
       </List>
-
     </div>
   );
-};
-
+}; 
 
 const inputArrayType: {
   tab: string;
@@ -140,38 +151,42 @@ function RenderInputComponents(tabIndex: number) {
                 <TextInput key={key} label={label} source={key} />
               </div>
             );
-          case 'Boolean':
-            return (
-              <div key={itemIndex}>
+            case 'Boolean':
+              return (
+                <div key={itemIndex}>
                 <BooleanInput label="Commentable" source={key} />
-              </div>
+              </div>    
             );
-          default:
             return null; // or handle the case for other input types as needed
-        }
-      })}
+          }          
+        })}
     </div>
   );
-}
+}  
+
+const PostTitle = () => {
+  const record = useRecordContext();
+  return <span>Post {record ? `"${record.title}"` : ''}</span>;
+};
 
 
 export const PostEdit: React.FC = () => (
-  <Edit>
+  <Edit title={<PostTitle />}>
     <TabbedForm>
       {inputArrayType.map((tabItem, index) => (
         <TabbedForm.Tab label={tabItem.tab} key={index}>
           {RenderInputComponents(index)}
-        </TabbedForm.Tab>
+        </TabbedForm.Tab>      
       ))}
     </TabbedForm>
-  </Edit>
+  </Edit>    
 );
 
 
 const postFilters = [
   <TextInput source="q" label="Search" alwaysOn />,
   <ReferenceInput source="userId" label="User" reference="users" />,
-];
+];  
 
 
 export const PostCreate = () => (
@@ -181,20 +196,5 @@ export const PostCreate = () => (
       <TextInput source="title" />
       <TextInput source="body" multiline rows={5} />
     </SimpleForm>
-  </Create>
+  </Create>    
 );
-
-
-
-const PostTitle = () => {
-  const record = useRecordContext();
-  return <span>Post {record ? `"${record.title}"` : ''}</span>;
-};
-
-
-
-
-
-
-
-

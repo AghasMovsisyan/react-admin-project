@@ -9,13 +9,14 @@ import UserIcon from "@mui/icons-material/Group";
 import { MyLayout } from "./MyLayout"
 ;
 import { PostCreate, PostEdit, PostList } from './posts';
+import { CustomShowGuesser } from './showguesser';
 
 export const App = () => (
   <Admin authProvider={authProvider} dataProvider={dataProvider} dashboard={Dashboard}>
     <Resource
       name="posts"
       list={PostList}
-      show={ShowGuesser}
+      show={CustomShowGuesser}
       edit={PostEdit}
       create={PostCreate}
       icon={PostIcon}
