@@ -19,7 +19,6 @@ export const App = () => (
     <Resource
       name="posts"
       list={PostList}
-      show={CustomShowGuesser}
       edit={PostEdit}
       create={PostCreate}
       icon={PostIcon}

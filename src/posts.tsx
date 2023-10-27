@@ -14,43 +14,42 @@ import {
   TextInput,
   TabbedForm,
   Create,
-  required,
   DateInput,
   NumberInput,
   BooleanInput,
-  ReferenceManyField,
-  DateField,
-  number,
-  minValue,
-  ImageField,
-  ImageInput,
-  CheckboxGroupInput,
-  SelectInput,
-  PasswordInput,
   Button,
-  FunctionField
+  Identifier
 } from "react-admin";
 import * as React from 'react';
-import PostModal from "./PostModal";
 import { Dialog, DialogContent, DialogTitle, ListProps } from "@mui/material";
 import { useEffect } from 'react';
+import { Post } from "./customInterfaces";
+import "../styles/modal.css"
 
-
-
-
-interface Post {
-  id: number;
-  userId: number;
-  title: string;
-  body: string;
-}
-
-
-
+const post: Post = {
+  id: 1,
+  userId: 1,
+  title: 'Sample Title',
+  body: 'Sample Body',
+};
 
 export const PostList: React.FC<ListProps> = (props) => {
   const [isModalOpen, setModalOpen] = React.useState(false);
   const [selectedPost, setSelectedPost] = React.useState<Post | null>(null);
+  const [userName, setUserName] = React.useState<string | null>(null);
+
+  useEffect(() => {
+    if (selectedPost) {
+      // Fetch user data based on userId
+      fetchUserById(selectedPost.userId)
+        .then((user) => {
+          setUserName(user.name);
+        })
+        .catch((error) => {
+          console.error("Failed to fetch user data:", error);
+        });
+    }
+  }, [selectedPost]);
 
   const openModal = (post: Post) => {
     setSelectedPost(post);
@@ -65,7 +64,12 @@ export const PostList: React.FC<ListProps> = (props) => {
   return (
     <div>
       <List>
-        <Datagrid>
+        <Datagrid  rowClick={(id, resource, record) => openModal({
+        id,
+        userId: record.userId,
+        title: record.title,
+        body: record.body,
+      })} >
           <TextField source="id" />
           <ReferenceField source="userId" reference="users" link="show">
             <TextField source="name" />
@@ -73,28 +77,17 @@ export const PostList: React.FC<ListProps> = (props) => {
           <TextField source="title" />
           <TextField source="body" />
           <EditButton />
-          <FunctionField
-            render={(record: any) => (
-              <Button
-                label="Open Modal"
-                onClick={() => openModal(record)}
-              />
-            )}
-          />
         </Datagrid>
       </List>
 
       <Dialog fullWidth open={isModalOpen} onClose={closeModal}>
-        {selectedPost && (
-          <div>
+        {selectedPost && userName && (
+          <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
             <DialogContent>
-              <DialogTitle>ID: {selectedPost.id}</DialogTitle>
-              <DialogTitle>Name: <ReferenceField source="userId" reference="users" record={selectedPost}>
-                <TextField source="name" />
-              </ReferenceField>
-              </DialogTitle>
-              <DialogTitle>Title: {selectedPost.title}</DialogTitle>
-              <DialogTitle>Body: {selectedPost.body}</DialogTitle>
+              <DialogTitle>ID:  <span className="modaltitle">{selectedPost.id}</span></DialogTitle>
+              <DialogTitle>Name: <span className="modaltitle">{userName}</span></DialogTitle>
+              <DialogTitle>Title: <span className="modaltitle">{selectedPost.title}</span></DialogTitle>
+              <DialogTitle>Body: <span className="modaltitle">{selectedPost.body}</span></DialogTitle>
             </DialogContent>
             <Button label="Close" onClick={closeModal} />
           </div>
@@ -104,7 +97,20 @@ export const PostList: React.FC<ListProps> = (props) => {
   );
 };
 
-
+// Function to fetch user data by userId
+async function fetchUserById(userId: number) {
+  try {
+    const response = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}`);
+    if (response.ok) {
+      const user = await response.json();
+      return user;
+    } else {
+      throw new Error('Failed to fetch user data');
+    }
+  } catch (error) {
+    throw error;
+  }
+}
 
 const inputArrayType: {
   tab: string;
