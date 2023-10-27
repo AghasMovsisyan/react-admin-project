@@ -83,7 +83,7 @@ export const PostList: React.FC<ListProps> = (props) => {
               <DialogTitle>Title: <span className="modaltitlepost">{selectedPost.title}</span></DialogTitle>
               <DialogTitle>Body: <span className="modaltitlepost">{selectedPost.body}</span></DialogTitle>
             </DialogContent>
-            <Button label="Close" onClick={closeModal} />
+            <Button label="Close" onClick={closeModal}/>
           </div>
         )}
       </Dialog>

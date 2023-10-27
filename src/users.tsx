@@ -5,8 +5,6 @@ import React, { useState } from "react";
 import { User } from "./customInterfaces";
 
 
-
-
 export const UserList = () => {
     const isSmall = useMediaQuery<Theme>((theme) => theme.breakpoints.down("sm"));
     const [isModalOpen, setModalOpen] = React.useState(false);
@@ -57,7 +55,7 @@ export const UserList = () => {
         
         <Dialog fullWidth open={isModalOpen} onClose={closeModal}>
         {selectedPost && (
-          <div style={{ maxHeight: '500px', overflowY: 'auto' }}>
+          <div style={{ maxHeight: '600px', overflowY: 'auto' }}>
             <DialogContent>
               <DialogTitle>
                 ID:
@@ -65,15 +63,15 @@ export const UserList = () => {
               </DialogTitle>
               <DialogTitle>
                 Name:
-                {editMode ? (
+                {/* {editMode ? (
                   <input
                     type="text"
                     name="name"
                     value={selectedPost.name}
                   />
-                ) : (
-                  <span className="non-editable">{selectedPost.name}</span>
-                )}
+                ) : ( */}
+                  <span className="modaltitleuser">{selectedPost.name}</span>
+                {/* )} */}
               </DialogTitle>
               <DialogTitle>
                 Email:
@@ -92,8 +90,10 @@ export const UserList = () => {
                 <span className="modaltitleuser">{selectedPost.company.name}</span>
               </DialogTitle>
             </DialogContent>
-            <Button label="Edit" onClick={toggleEditMode} />
-            <Button label="Close" onClick={closeModal} />
+            <Button label="Edit" onClick={toggleEditMode}/>
+            <div className="button-container">
+            <Button label="Close" onClick={closeModal} className="closeButton"/>
+            </div>
           </div>
         )}
       </Dialog>

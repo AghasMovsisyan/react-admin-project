@@ -9,8 +9,7 @@
     padding: 0px 0px 0px 7px;
     font-size: medium;
 }
-
-
+  
 
 /* ---------------------Modal User--------------------- */
 .modaltitleuser {
@@ -18,3 +17,21 @@
     padding: 0px 0px 0px 8px;
     font-size: medium;
 }
+
+/* Container styles */
+.button-container {
+    position: relative;
+  }
+  
+  /* Button styles */
+  .closeButton {
+    position: absolute;
+    top: -450px; /* Adjust this value to set the button's distance from the top */
+    left: 536px; /* Adjust this value to set the button's distance from the right */
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  
