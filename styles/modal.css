@@ -3,7 +3,18 @@
 
 
 
-
-.modaltitle {
+/* ---------------------Modal Post--------------------- */
+.modaltitlepost {
     font-family: 'Rubik', sans-serif;
+    padding: 0px 0px 0px 7px;
+    font-size: medium;
+}
+
+
+
+/* ---------------------Modal User--------------------- */
+.modaltitleuser {
+    font-family: 'Rubik', sans-serif;
+    padding: 0px 0px 0px 8px;
+    font-size: medium;
 }

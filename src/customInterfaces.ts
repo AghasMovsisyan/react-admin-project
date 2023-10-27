@@ -22,3 +22,18 @@ export interface InputTypeItem {
   
   export type InputArrayType = InputTypeTab[];
   
+
+  export interface User {
+    id: Identifier,
+    email: string,
+    name: string,
+    phone: number,
+    username: string,
+    website: string,
+    company: {
+        name: string;
+        catchPhrase: string;
+        bs: string;
+    
+     }
+  }

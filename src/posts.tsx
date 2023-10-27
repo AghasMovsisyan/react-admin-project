@@ -26,12 +26,6 @@ import { useEffect } from 'react';
 import { Post } from "./customInterfaces";
 import "../styles/modal.css"
 
-const post: Post = {
-  id: 1,
-  userId: 1,
-  title: 'Sample Title',
-  body: 'Sample Body',
-};
 
 export const PostList: React.FC<ListProps> = (props) => {
   const [isModalOpen, setModalOpen] = React.useState(false);
@@ -84,10 +78,10 @@ export const PostList: React.FC<ListProps> = (props) => {
         {selectedPost && userName && (
           <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
             <DialogContent>
-              <DialogTitle>ID:  <span className="modaltitle">{selectedPost.id}</span></DialogTitle>
-              <DialogTitle>Name: <span className="modaltitle">{userName}</span></DialogTitle>
-              <DialogTitle>Title: <span className="modaltitle">{selectedPost.title}</span></DialogTitle>
-              <DialogTitle>Body: <span className="modaltitle">{selectedPost.body}</span></DialogTitle>
+              <DialogTitle>ID:  <span className="modaltitlepost">{selectedPost.id}</span></DialogTitle>
+              <DialogTitle>Name: <span className="modaltitlepost">{userName}</span></DialogTitle>
+              <DialogTitle>Title: <span className="modaltitlepost">{selectedPost.title}</span></DialogTitle>
+              <DialogTitle>Body: <span className="modaltitlepost">{selectedPost.body}</span></DialogTitle>
             </DialogContent>
             <Button label="Close" onClick={closeModal} />
           </div>
