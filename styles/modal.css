@@ -23,8 +23,8 @@
     position: relative;
   }
   
-  /* Button styles */
-  .closeButton {
+/* Button styles */
+.closeButton {
     position: absolute;
     top: -450px; /* Adjust this value to set the button's distance from the top */
     left: 536px; /* Adjust this value to set the button's distance from the right */

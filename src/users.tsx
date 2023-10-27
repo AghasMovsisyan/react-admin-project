@@ -3,6 +3,7 @@ import { List, SimpleList, Datagrid, TextField, EmailField, Resource, Button } f
 import MyUrlField from './MyUrlField';
 import React, { useState } from "react";
 import { User } from "./customInterfaces";
+import "../styles/modal.css"
 
 
 export const UserList = () => {
