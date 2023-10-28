@@ -35,3 +35,14 @@
     border-radius: 5px;
   }
   
+  
+  .custom-input {
+    width: 40%;
+    border: 1px solid #ccc;
+    padding: 6px;
+    margin-left: 5px;
+}
+
+.custom-input:focus {
+  border-color: #007bff; 
+}
