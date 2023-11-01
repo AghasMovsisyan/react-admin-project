@@ -46,3 +46,8 @@
 .custom-input:focus {
   border-color: #007bff; 
 }
+
+.modal1 {
+  max-height: 600px;
+  overflow-y: auto;
+}

@@ -8,8 +8,8 @@ import axios from "axios"; // Import the axios library
 
 export const UserList = () => {
     const isSmall = useMediaQuery<Theme>((theme) => theme.breakpoints.down("sm"));
-    const [isModalOpen, setModalOpen] = React.useState(false);
-    const [selectedPost, setSelectedPost] = React.useState<User | null>(null);
+    const [isModalOpen, setModalOpen] = useState(false);
+    const [selectedPost, setSelectedPost] = useState<User | null>(null);
     const [editMode, setEditMode] = useState(false);
     const [editedPost, setEditedPost] = useState<User | null>(null);
     const [isEditButtonVisible, setEditButtonVisible] = useState(true);
@@ -19,12 +19,13 @@ export const UserList = () => {
         setModalOpen(true);
     };
 
-        const closeModal = () => {
-            setSelectedPost(null);
-            setModalOpen(false);
-            setEditMode(false); // Reset editMode
-            setEditButtonVisible(true);
-        };
+    const closeModal = () => {
+        setSelectedPost(null);
+        setModalOpen(false);
+        setEditMode(false); // Reset editMode
+        setEditButtonVisible(true);
+    };
+
 
     const toggleEditMode = () => {
         setEditMode(!editMode);
@@ -115,7 +116,7 @@ export const UserList = () => {
 
             <Dialog fullWidth open={isModalOpen} onClose={closeModal}>
                 {selectedPost && (
-                    <div style={{ maxHeight: '600px', overflowY: 'auto' }}>
+                    <div className="modal1">
                        <DialogContent>
                         <DialogTitle>
                             ID: <span className="modaltitleuser">{selectedPost.id}</span>
@@ -218,6 +219,7 @@ export const UserList = () => {
                     {!editMode && (
                         <div>
                             <Button label="Edit" onClick={toggleEditMode} />
+                            <Button label="Close" onClick={closeModal}/>
                         </div>
                     )}
                 </div>
